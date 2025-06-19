@@ -2,240 +2,405 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>YC Hotel Digital Menu</title>
   <style>
+    :root {
+      --primary-color: #d35400;
+      --secondary-color: #2c3e50;
+      --accent-color: #27ae60;
+      --error-color: #e74c3c;
+      --text-color: #333;
+      --light-text: #7f8c8d;
+      --bg-color: #f4f4f4;
+      --card-bg: #fff;
+      --shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
     body {
       font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      background: #f4f4f4;
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-size: 14px;
+      line-height: 1.4;
     }
+    
     .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 10px;
     }
+    
     h1 {
       text-align: center;
-      color: #2c3e50;
-      margin-bottom: 30px;
+      color: var(--secondary-color);
+      margin: 15px 0;
+      font-size: 1.5em;
     }
+    
     .menu-section {
-      margin-top: 30px;
-      background: white;
-      padding: 20px;
+      margin-top: 20px;
+      background: var(--card-bg);
+      padding: 15px;
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: var(--shadow);
     }
+    
     .section-title {
-      font-size: 1.8em;
-      color: #d35400;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 3px solid #d35400;
+      font-size: 1.4em;
+      color: var(--primary-color);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--primary-color);
     }
+    
     .menu-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
     }
+    
     .menu-item {
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      padding: 15px;
+      background: var(--card-bg);
+      border-radius: 6px;
+      box-shadow: var(--shadow);
+      padding: 10px;
       text-align: center;
-      transition: transform 0.3s;
+      transition: transform 0.2s;
     }
+    
     .menu-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
+    
     .menu-item img {
-      max-width: 100%;
-      border-radius: 8px;
-      height: 180px;
+      width: 100%;
+      border-radius: 6px;
+      height: 120px;
       object-fit: cover;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
+    
     .menu-item h3 {
-      margin: 10px 0 5px;
-      font-size: 1.2em;
-      color: #2c3e50;
+      margin: 8px 0 4px;
+      font-size: 1em;
+      color: var(--secondary-color);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+    
     .menu-item p {
-      color: #7f8c8d;
-      font-size: 0.9em;
-      margin: 5px 0;
-    }
-    .tags {
-      font-size: 0.85em;
-      margin: 8px 0;
-    }
-    .tags span {
-      display: inline-block;
-      background: #f1c40f;
-      padding: 3px 8px;
-      border-radius: 15px;
-      margin-right: 5px;
+      color: var(--light-text);
       font-size: 0.8em;
+      margin: 4px 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      height: 2.4em;
     }
+    
+    .tags {
+      font-size: 0.75em;
+      margin: 6px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px;
+    }
+    
+    .tags span {
+      background: #f1c40f;
+      padding: 2px 6px;
+      border-radius: 12px;
+      font-size: 0.7em;
+    }
+    
     .price {
       font-weight: bold;
-      color: #27ae60;
-      font-size: 1.1em;
-      margin: 10px 0;
+      color: var(--accent-color);
+      font-size: 1em;
+      margin: 8px 0;
     }
+    
     .menu-item button {
-      margin-top: 10px;
-      padding: 8px 15px;
-      background: #27ae60;
+      margin-top: 8px;
+      padding: 6px 12px;
+      background: var(--accent-color);
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 4px;
       cursor: pointer;
       font-weight: bold;
-      transition: background 0.3s;
+      font-size: 0.8em;
+      transition: background 0.2s;
+      width: 100%;
     }
+    
     .menu-item button:hover {
       background: #219955;
     }
+    
     .cart {
-      background: #fff;
-      margin-top: 40px;
-      padding: 25px;
+      background: var(--card-bg);
+      margin-top: 20px;
+      padding: 15px;
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 20px;
+      box-shadow: var(--shadow);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      max-height: 60vh;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
     }
+    
+    .cart.active {
+      transform: translateY(0);
+    }
+    
     .cart h2 {
-      color: #2c3e50;
+      color: var(--secondary-color);
       margin-top: 0;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 10px;
+      font-size: 1.3em;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 8px;
     }
+    
     .cart-items {
       list-style: none;
       padding: 0;
-      max-height: 300px;
+      max-height: 150px;
       overflow-y: auto;
-    }
-    .cart-items li {
       margin: 10px 0;
+    }
+    
+    .cart-items li {
+      margin: 8px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 0;
+      padding: 6px 0;
       border-bottom: 1px dashed #eee;
+      font-size: 0.9em;
     }
+    
     .cart-item-controls {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
+    
     .cart-item-controls button {
-      background: #e74c3c;
+      background: var(--error-color);
       color: white;
       border: none;
       border-radius: 3px;
-      padding: 3px 8px;
+      padding: 2px 6px;
       cursor: pointer;
-      font-size: 0.9em;
+      font-size: 0.8em;
     }
+    
     .cart-item-controls .quantity {
-      min-width: 25px;
+      min-width: 20px;
       text-align: center;
       font-weight: bold;
     }
+    
     .cart-total {
-      font-size: 1.3em;
-      margin: 15px 0;
+      font-size: 1.1em;
+      margin: 12px 0;
       text-align: right;
+      font-weight: bold;
     }
+    
     .form-group {
-      margin-top: 15px;
+      margin-top: 12px;
     }
+    
     .form-group label {
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
       font-weight: bold;
-      color: #2c3e50;
+      color: var(--secondary-color);
+      font-size: 0.9em;
     }
+    
     .form-group input {
       width: 100%;
-      padding: 10px;
+      padding: 8px;
       border: 1px solid #ddd;
       border-radius: 4px;
-      font-size: 1em;
+      font-size: 0.9em;
     }
+    
     .cart-actions {
       display: flex;
-      gap: 10px;
-      margin-top: 15px;
+      gap: 8px;
+      margin-top: 12px;
     }
+    
     .cart-actions button {
       flex: 1;
-      padding: 10px;
+      padding: 8px;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       font-weight: bold;
-      transition: opacity 0.3s;
+      font-size: 0.9em;
+      transition: opacity 0.2s;
     }
+    
     .cart-actions button:hover {
       opacity: 0.9;
     }
+    
     .clear-btn {
-      background: #e74c3c;
+      background: var(--error-color);
       color: white;
     }
+    
     .update-btn {
       background: #3498db;
       color: white;
     }
+    
     .submit-btn {
-      margin-top: 20px;
+      margin-top: 15px;
       width: 100%;
-      padding: 12px;
-      background-color: #d35400;
+      padding: 10px;
+      background-color: var(--primary-color);
       color: white;
       border: none;
       border-radius: 4px;
-      font-size: 1.1em;
+      font-size: 1em;
       cursor: pointer;
       font-weight: bold;
-      transition: background 0.3s;
+      transition: background 0.2s;
     }
+    
     .submit-btn:hover {
       background: #c0392b;
     }
+    
     .empty-cart {
       text-align: center;
-      color: #7f8c8d;
+      color: var(--light-text);
       font-style: italic;
-      padding: 20px 0;
+      padding: 15px 0;
+      font-size: 0.9em;
     }
-    @media (max-width: 768px) {
-      .menu-grid {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      }
-    }
+    
     .status-message {
       margin-top: 10px;
-      padding: 10px;
+      padding: 8px;
       border-radius: 4px;
       text-align: center;
+      font-size: 0.9em;
       display: none;
     }
+    
     .success {
       background-color: #d4edda;
       color: #155724;
     }
+    
     .error {
       background-color: #f8d7da;
       color: #721c24;
+    }
+    
+    .cart-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      cursor: pointer;
+      z-index: 99;
+      border: none;
+    }
+    
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--error-color);
+      color: white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8em;
+      font-weight: bold;
+    }
+    
+    @media (min-width: 600px) {
+      .container {
+        max-width: 95%;
+        padding: 15px;
+      }
+      
+      .menu-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+      
+      .menu-item img {
+        height: 140px;
+      }
+      
+      .cart {
+        position: sticky;
+        top: 20px;
+        bottom: auto;
+        max-height: 70vh;
+        transform: none;
+      }
+      
+      .cart.active {
+        transform: none;
+      }
+      
+      .cart-toggle {
+        display: none;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .container {
+        max-width: 750px;
+      }
+      
+      .menu-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+    }
+    
+    @media (min-width: 992px) {
+      .container {
+        max-width: 970px;
+      }
     }
   </style>
 </head>
@@ -313,17 +478,16 @@
           <div class="price">₹180</div>
           <button onclick="addToCart('Chicken Manchow Soup', 180)">Add to Cart</button>
         </div>
-          <div class="menu-item">
-          <img src="https://www.whiskaffair.com/wp-content/uploads/2020/04/Chicken-Manchow-Soup-2-1.jpg" alt="Chicken Manchow Soup"/>
-          <h3>palak   Soup</h3>
-          <p> veg soup with garden fresh</p>
-          <div class="tags"><span>Non-Veg</span><span>Spicy</span></div>
+        <div class="menu-item">
+          <img src="https://www.whiskaffair.com/wp-content/uploads/2020/04/Chicken-Manchow-Soup-2-1.jpg" alt="Palak Soup"/>
+          <h3>Palak Soup</h3>
+          <p>Veg soup with garden fresh spinach</p>
+          <div class="tags"><span>Vegetarian</span><span>Healthy</span></div>
           <div class="price">₹180</div>
-          <button onclick="addToCart('palak  Soup', 180)">Add to Cart</button>
+          <button onclick="addToCart('Palak Soup', 180)">Add to Cart</button>
         </div>
         
-        <!-- More Starters would continue here up to 50 -->
-        <!-- Example of additional items (in real implementation, you'd have all 50) -->
+        <!-- More Starters -->
         <div class="menu-item">
           <img src="https://www.vegrecipesofindia.com/wp-content/uploads/2020/01/onion-pakoda-1.jpg" alt="Onion Pakora"/>
           <h3>Onion Pakora</h3>
@@ -406,8 +570,7 @@
           <button onclick="addToCart('Chicken Chilli Garlic Noodles', 300)">Add to Cart</button>
         </div>
         
-        <!-- More Main Course items would continue here up to 50 -->
-        <!-- Example of additional items -->
+        <!-- More Main Course -->
         <div class="menu-item">
           <img src="https://www.indianhealthyrecipes.com/wp-content/uploads/2021/12/palak-paneer-recipe.jpg" alt="Palak Paneer"/>
           <h3>Palak Paneer</h3>
@@ -474,8 +637,7 @@
           <button onclick="addToCart('Red Velvet Cake', 200)">Add to Cart</button>
         </div>
         
-        <!-- More Desserts would continue here up to 50 -->
-        <!-- Example of additional items -->
+        <!-- More Desserts -->
         <div class="menu-item">
           <img src="https://www.vegrecipesofindia.com/wp-content/uploads/2021/04/rasgulla-1.jpg" alt="Rasgulla"/>
           <h3>Rasgulla</h3>
@@ -495,7 +657,12 @@
       </div>
     </div>
 
-    <div class="cart">
+    <button class="cart-toggle" onclick="toggleCart()">
+      🛒
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
+
+    <div class="cart" id="cart">
       <h2>Your Order</h2>
       <ul class="cart-items" id="cart-items">
         <li class="empty-cart">Your cart is empty</li>
@@ -534,11 +701,13 @@
         cart.push({ item, price, quantity: 1 });
       }
       renderCart();
+      updateCartCount();
     }
 
     function removeFromCart(index) {
       cart.splice(index, 1);
       renderCart();
+      updateCartCount();
     }
 
     function updateQuantity(index, change) {
@@ -549,6 +718,7 @@
         removeFromCart(index);
       } else {
         renderCart();
+        updateCartCount();
       }
     }
 
@@ -561,6 +731,7 @@
       if (confirm('Are you sure you want to clear your cart?')) {
         cart = [];
         renderCart();
+        updateCartCount();
       }
     }
 
@@ -596,6 +767,15 @@
       total.textContent = sum;
     }
 
+    function updateCartCount() {
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById("cart-count").textContent = count;
+    }
+
+    function toggleCart() {
+      document.getElementById("cart").classList.toggle("active");
+    }
+
     function showStatusMessage(message, isSuccess) {
       const statusElement = document.getElementById("statusMessage");
       statusElement.textContent = message;
@@ -609,7 +789,6 @@
 
     async function saveToGoogleSheet(orderData) {
       // This is a placeholder for your Google Apps Script web app URL
-      // You need to create a Google Apps Script and deploy it as a web app
       const scriptUrl = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
       
       try {
@@ -775,6 +954,21 @@
 
     // Initialize empty cart display
     renderCart();
+    updateCartCount();
+    
+    // Close cart when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+      const cart = document.getElementById('cart');
+      const cartToggle = document.querySelector('.cart-toggle');
+      
+      if (window.innerWidth < 600 && 
+          cart.classList.contains('active') && 
+          !cart.contains(event.target) && 
+          event.target !== cartToggle && 
+          !cartToggle.contains(event.target)) {
+        cart.classList.remove('active');
+      }
+    });
   </script>
 </body>
 </html>
