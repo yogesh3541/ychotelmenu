@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>YC Hotel Digital Menu</title>
   <style>
-    <style>
     body {
       font-family: 'Arial', sans-serif;
       margin: 0;
@@ -16,6 +15,7 @@
       max-width: 1200px;
       margin: auto;
       padding: 20px;
+      position: relative;
     }
     h1 {
       text-align: center;
@@ -54,7 +54,7 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
     .menu-item img {
-      max-width: 100%;
+      max-width: 180px;
       border-radius: 8px;
       height: 180px;
       object-fit: cover;
@@ -87,6 +87,19 @@
       color: #27ae60;
       font-size: 1.1em;
       margin: 10px 0;
+    }
+    .video-link {
+      display: block;
+      margin: 8px 0;
+      font-size: 0.8em;
+    }
+    .video-link a {
+      color: #3498db;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .video-link a:hover {
+      text-decoration: underline;
     }
     .menu-item button {
       margin-top: 10px;
@@ -218,41 +231,6 @@
       font-style: italic;
       padding: 20px 0;
     }
-    
-    /* Responsive adjustments */
-    @media (min-width: 769px) and (max-width: 1024px) {
-      /* Tablet-specific styles (typically 768px-1024px) */
-      .menu-grid {
-        grid-template-columns: repeat(3, 1fr); /* Three equal columns */
-      }
-      .menu-item {
-        padding: 12px;
-      }
-      .menu-item img {
-        height: 150px;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      /* For smaller tablets and large phones */
-      .menu-grid {
-        grid-template-columns: repeat(2, 1fr); /* Two columns */
-      }
-    }
-    
-    @media (max-width: 480px) {
-      /* For mobile phones */
-      .menu-grid {
-        grid-template-columns: 1fr; /* Single column */
-      }
-      .section-title {
-        font-size: 1.5em;
-      }
-      .container {
-        padding: 10px;
-      }
-    }
-    
     .status-message {
       margin-top: 10px;
       padding: 10px;
@@ -268,108 +246,176 @@
       background-color: #f8d7da;
       color: #721c24;
     }
- 
+    .video-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .video-container {
+      position: relative;
+      width: 80%;
+      max-width: 800px;
+    }
+    .video-iframe {
+      width: 100%;
+      height: 450px;
+      border: none;
+    }
+    .close-video {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+      background: #e74c3c;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid white;
+    }
+    @media (max-width: 768px) {
+      .menu-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+      .video-container {
+        width: 95%;
+      }
+      .video-iframe {
+        height: 250px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>🍽️ YC Hotel Digital Menu</h1>
 
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+      <div class="video-container">
+        <span class="close-video" onclick="closeVideo()">&times;</span>
+        <iframe class="video-iframe" id="videoFrame" allowfullscreen></iframe>
+      </div>
+    </div>
+
     <div class="menu-section">
       <div class="section-title">Starters & Appetizers</div>
       <div class="menu-grid">
         <!-- Indian Starters -->
         <div class="menu-item">
-          <img src="https://www.cubesnjuliennes.com/wp-content/uploads/2021/03/Best-Paneer-Tikka-Masala-Recipe.jpg" alt="Paneer Tikka"/>
-          <h3>Paneer Tikka</h3>
+          <img src="https://derafarms.com/cdn/shop/files/deraproducts-2024-06-26T165127.117.png?v=1719400896" alt="Paneer Tikka"/>
+			<h3>Paneer Tikka<br><span>पनीर टिक्का</span></h3>
+
           <p>Cottage cheese marinated in spices and grilled</p>
           <div class="tags"><span>Vegetarian</span><span>Spicy</span></div>
           <div class="price">₹220</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/1WlFe777vu4')">Watch Video</a></div>
           <button onclick="addToCart('Paneer Tikka', 220)">Add to Cart</button>
         </div>
         <div class="menu-item">
-          <img src="https://www.whiskaffair.com/wp-content/uploads/2020/08/Chicken-Tikka-2-3.jpg" alt="Chicken Tikka"/>
-          <h3>Chicken Tikka</h3>
+          <img src="https://hindi.pardaphash.com/wp-content/uploads/2023/06/cp-chicken-tikka-pqtk-mediumSquareAt3X.jpg" alt="Chicken Tikka"/>
+          <h3>Chicken Tikka<br><span>चिकन टिक्का</span></h3>
+
           <p>Succulent chicken pieces marinated and grilled</p>
           <div class="tags"><span>Non-Veg</span><span>Spicy</span></div>
           <div class="price">₹280</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/3MdHSEykTtw')">Watch Video</a></div>
           <button onclick="addToCart('Chicken Tikka', 280)">Add to Cart</button>
         </div>
         <div class="menu-item">
-          <img src="https://www.indianveggiedelight.com/wp-content/uploads/2021/08/hara-bhara-kebab-featured.jpg" alt="Hara Bhara Kabab"/>
-          <h3>Hara Bhara Kabab</h3>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrjQpY4s4jZfeEF91gtF3p5IyY5Wbuu_pZMA&s" alt="Hara Bhara Kabab"/>
+					<h3>Hara Bhara Kabab<br><span>हरा भरा कबाब</span></h3>
           <p>Green vegetable kebabs with spinach and peas</p>
           <div class="tags"><span>Vegetarian</span><span>Healthy</span></div>
           <div class="price">₹180</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/WZuVXcnn1C8')">Watch Video</a></div>
           <button onclick="addToCart('Hara Bhara Kabab', 180)">Add to Cart</button>
         </div>
         <div class="menu-item">
-          <img src="https://www.archanaskitchen.com/images/archanaskitchen/1-Author/shaheen_ali/Tandoori_Aloo_Recipe_Punjabi_Style.jpg" alt="Tandoori Aloo"/>
-          <h3>Tandoori Aloo</h3>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgNRQ1IYn8QGCZrMmHJmKROibHlb16gT6j2w&s" alt="Tandoori Aloo"/>
+          <h3>Tandoori Aloo<br><span>तंदुरी आलू</span></h3>
           <p>Baby potatoes marinated in yogurt and spices</p>
           <div class="tags"><span>Vegetarian</span><span>Gluten-Free</span></div>
           <div class="price">₹160</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/04ReXQKCQ-U')">Watch Video</a></div>
           <button onclick="addToCart('Tandoori Aloo', 160)">Add to Cart</button>
         </div>
         <div class="menu-item">
-          <img src="https://www.cookwithmanali.com/wp-content/uploads/2014/09/Murg-Malai-Kebab.jpg" alt="Murg Malai Kabab"/>
-          <h3>Murg Malai Kabab</h3>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIZ0zJYCciklaf9VZ6gJbIQOL2gQ8HxtJmIg&s" alt="Murg Malai Kabab"/>
+					<h3>Murg Malai Kabab<br><span>मुर्ग मलाई कबाब</span></h3>
           <p>Creamy chicken kebabs with mild spices</p>
           <div class="tags"><span>Non-Veg</span><span>Mild</span></div>
           <div class="price">₹320</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/1WlFe777vu4')">Watch Video</a></div>
           <button onclick="addToCart('Murg Malai Kabab', 320)">Add to Cart</button>
         </div>
         
         <!-- Soups -->
         <div class="menu-item">
-          <img src="https://www.vegrecipesofindia.com/wp-content/uploads/2021/01/tomato-soup-1.jpg" alt="Tomato Soup"/>
-          <h3>Tomato Soup</h3>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRShFHXtI1V_IeC7vDr06FU6dhbpRAyNDOotA&s" alt="Tomato Soup"/>
+          <h3>Tomato Soup<br><span>टोमॅटो सूप</span></h3>
           <p>Classic creamy tomato soup with herbs</p>
           <div class="tags"><span>Vegetarian</span><span>Soup</span></div>
           <div class="price">₹120</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/3MdHSEykTtw')">Watch Video</a></div>
           <button onclick="addToCart('Tomato Soup', 120)">Add to Cart</button>
         </div>
         <div class="menu-item">
-          <img src="https://www.indianhealthyrecipes.com/wp-content/uploads/2022/01/sweet-corn-soup-recipe.jpg" alt="Sweet Corn Soup"/>
-          <h3>Sweet Corn Soup</h3>
+          <img src="https://udupi-recipes.com/wp-content/uploads/2015/11/healthy-sweet-corn-vegetable-soup-1-500x500.jpg" alt="Sweet Corn Soup"/>
+          <h3>Sweet Corn Soup <br><span>स्वीट कॉर्न सूप</span></h3>
           <p>Light soup with sweet corn and vegetables</p>
           <div class="tags"><span>Vegetarian</span><span>Soup</span></div>
           <div class="price">₹140</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/WZuVXcnn1C8')">Watch Video</a></div>
           <button onclick="addToCart('Sweet Corn Soup', 140)">Add to Cart</button>
         </div>
         <div class="menu-item">
-          <img src="https://www.whiskaffair.com/wp-content/uploads/2020/04/Chicken-Manchow-Soup-2-1.jpg" alt="Chicken Manchow Soup"/>
-          <h3>Chicken Manchow Soup</h3>
+          <img src="https://easyindiancookbook.com/wp-content/uploads/2023/07/manchow-soup-veg-6-500x500.jpg" alt="Chicken Manchow Soup"/>
+          <h3>Chicken Manchow Soup<br></span>चिकन मांचाव सूप</span></h3>
           <p>Spicy Indo-Chinese soup with chicken</p>
           <div class="tags"><span>Non-Veg</span><span>Spicy</span></div>
           <div class="price">₹180</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/04ReXQKCQ-U')">Watch Video</a></div>
           <button onclick="addToCart('Chicken Manchow Soup', 180)">Add to Cart</button>
         </div>
-          <div class="menu-item">
-          <img src="https://www.whiskaffair.com/wp-content/uploads/2020/04/Chicken-Manchow-Soup-2-1.jpg" alt="Chicken Manchow Soup"/>
-          <h3>palak   Soup</h3>
-          <p> veg soup with garden fresh</p>
-          <div class="tags"><span>Non-Veg</span><span>Spicy</span></div>
+        <div class="menu-item">
+          <img src="http://cookingwithsiddhi.com/wp-content/uploads/2017/12/palak-soup-1024x682.jpg" alt="Palak Soup"/>
+          <h3>Palak Soup<br><span>पालक सूप</span></h3>
+          <p>Veg soup with garden fresh spinach</p>
+          <div class="tags"><span>Vegetarian</span><span>Healthy</span></div>
           <div class="price">₹180</div>
-          <button onclick="addToCart('palak  Soup', 180)">Add to Cart</button>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/1WlFe777vu4')">Watch Video</a></div>
+          <button onclick="addToCart('Palak Soup', 180)">Add to Cart</button>
         </div>
         
-        <!-- More Starters would continue here up to 50 -->
-        <!-- Example of additional items (in real implementation, you'd have all 50) -->
+        <!-- More Starters -->
         <div class="menu-item">
-          <img src="https://www.vegrecipesofindia.com/wp-content/uploads/2020/01/onion-pakoda-1.jpg" alt="Onion Pakora"/>
-          <h3>Onion Pakora</h3>
+          <img src="https://rakskitchen.net/wp-content/uploads/2010/06/Onion-pakoda.jpg" alt="Onion Pakora"/>
+          <h3>Onion Pakora<br><span>कांदा पकोडा</span></h3>
           <p>Crispy onion fritters with chickpea batter</p>
           <div class="tags"><span>Vegetarian</span><span>Fried</span></div>
           <div class="price">₹150</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/3MdHSEykTtw')">Watch Video</a></div>
           <button onclick="addToCart('Onion Pakora', 150)">Add to Cart</button>
         </div>
         <div class="menu-item">
-          <img src="https://www.whiskaffair.com/wp-content/uploads/2020/04/Prawns-Fry-2-3.jpg" alt="Prawns Fry"/>
-          <h3>Prawns Fry</h3>
+          <img src="https://nightmunch.net/wp-content/uploads/2024/12/Butter-garlic-prawns.jpg" alt="Prawns Fry"/>
+          <h3>Prawns Fry <br><span>प्रॉन्स फ्राय</span></h3>
           <p>Spicy fried prawns with Indian spices</p>
           <div class="tags"><span>Non-Veg</span><span>Spicy</span></div>
           <div class="price">₹380</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/WZuVXcnn1C8')">Watch Video</a></div>
           <button onclick="addToCart('Prawns Fry', 380)">Add to Cart</button>
         </div>
       </div>
@@ -380,80 +426,88 @@
       <div class="menu-grid">
         <!-- Indian Main Course -->
         <div class="menu-item">
-          <img src="https://www.cookwithmanali.com/wp-content/uploads/2020/05/Butter-Chicken.jpg" alt="Butter Chicken"/>
-          <h3>Butter Chicken</h3>
+          <img src="https://www.yellowthyme.com/wp-content/uploads/2023/03/Butter-chicken-murg-makhani-08388.jpg" alt="Butter Chicken"/>
+          <h3>Butter Chicken <br><span>बटर चिकन</span></h3>
           <p>Classic creamy tomato-based chicken curry</p>
           <div class="tags"><span>Non-Veg</span><span>Popular</span></div>
           <div class="price">₹320</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/04ReXQKCQ-U')">Watch Video</a></div>
           <button onclick="addToCart('Butter Chicken', 320)">Add to Cart</button>
         </div>
         <div class="menu-item">
           <img src="https://www.vegrecipesofindia.com/wp-content/uploads/2020/01/paneer-butter-masala-5.jpg" alt="Paneer Butter Masala"/>
-          <h3>Paneer Butter Masala</h3>
+          <h3>Paneer Butter Masala <br><span>पनीर बटर मसाला </span></h3>
           <p>Cottage cheese in rich tomato gravy</p>
           <div class="tags"><span>Vegetarian</span><span>Popular</span></div>
           <div class="price">₹280</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/1WlFe777vu4')">Watch Video</a></div>
           <button onclick="addToCart('Paneer Butter Masala', 280)">Add to Cart</button>
         </div>
         <div class="menu-item">
-          <img src="https://www.indianhealthyrecipes.com/wp-content/uploads/2021/08/dal-tadka-recipe.jpg" alt="Dal Tadka"/>
-          <h3>Dal Tadka</h3>
+          <img src="https://www.indianhealthyrecipes.com/wp-content/uploads/2021/04/dal-tadka-recipe-500x500.jpg" alt="Dal Tadka"/>
+          <h3>Dal Tadka<br><span>दाल तडका</span></h3>
           <p>Yellow lentils tempered with spices</p>
           <div class="tags"><span>Vegetarian</span><span>Healthy</span></div>
           <div class="price">₹200</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/3MdHSEykTtw')">Watch Video</a></div>
           <button onclick="addToCart('Dal Tadka', 200)">Add to Cart</button>
         </div>
         <div class="menu-item">
           <img src="https://www.cubesnjuliennes.com/wp-content/uploads/2020/07/Chicken-Biryani-Recipe.jpg" alt="Chicken Biryani"/>
-          <h3>Chicken Biryani</h3>
+          <h3>Chicken Biryani<br><span>चिकन बिर्याणी</span></h3>
           <p>Fragrant rice with chicken and spices</p>
           <div class="tags"><span>Non-Veg</span><span>Spicy</span></div>
           <div class="price">₹350</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/WZuVXcnn1C8')">Watch Video</a></div>
           <button onclick="addToCart('Chicken Biryani', 350)">Add to Cart</button>
         </div>
         <div class="menu-item">
-          <img src="https://www.indianhealthyrecipes.com/wp-content/uploads/2022/04/veg-biryani.jpg" alt="Vegetable Biryani"/>
-          <h3>Vegetable Biryani</h3>
+          <img src="https://www.cookwithkushi.com/wp-content/uploads/2015/04/best_vegetable_biryani_recipe.jpg" alt="Vegetable Biryani"/>
+          <h3>Veg Biryani<br><span>व्हेज बिर्याणी</span></h3>
           <p>Fragrant rice with mixed vegetables</p>
           <div class="tags"><span>Vegetarian</span><span>Spicy</span></div>
           <div class="price">₹280</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/04ReXQKCQ-U')">Watch Video</a></div>
           <button onclick="addToCart('Vegetable Biryani', 280)">Add to Cart</button>
         </div>
         
         <!-- Chinese Main Course -->
         <div class="menu-item">
-          <img src="https://www.whiskaffair.com/wp-content/uploads/2021/03/Veg-Hakka-Noodles-2-3.jpg" alt="Veg Hakka Noodles"/>
-          <h3>Veg Hakka Noodles</h3>
+          <img src="https://mandidelivery.in/wp-content/uploads/2024/11/veg-hakka-noodles.jpg" alt="Veg Hakka Noodles"/>
+          <h3>Veg Hakka Noodles<br><span>व्हेज हक्का नूडल्स</span></h3>
           <p>Stir-fried noodles with vegetables</p>
           <div class="tags"><span>Vegetarian</span><span>Chinese</span></div>
           <div class="price">₹220</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/1WlFe777vu4')">Watch Video</a></div>
           <button onclick="addToCart('Veg Hakka Noodles', 220)">Add to Cart</button>
         </div>
         <div class="menu-item">
-          <img src="https://www.licious.in/blog/wp-content/uploads/2022/03/Chicken-Chilli-Garlic-Noodles.jpg" alt="Chicken Chilli Garlic Noodles"/>
-          <h3>Chicken Chilli Garlic Noodles</h3>
+          <img src="https://mantrapines.com/wp-content/uploads/2020/10/chicken-chilli-min.jpg" alt="Chicken Chilli Garlic Noodles"/>
+          <h3>Chicken Chilli <br><span>चिकन चिल्ली</span></h3>
           <p>Spicy noodles with chicken and garlic</p>
           <div class="tags"><span>Non-Veg</span><span>Spicy</span></div>
           <div class="price">₹300</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/3MdHSEykTtw')">Watch Video</a></div>
           <button onclick="addToCart('Chicken Chilli Garlic Noodles', 300)">Add to Cart</button>
         </div>
         
-        <!-- More Main Course items would continue here up to 50 -->
-        <!-- Example of additional items -->
+        <!-- More Main Course items -->
         <div class="menu-item">
-          <img src="https://www.indianhealthyrecipes.com/wp-content/uploads/2021/12/palak-paneer-recipe.jpg" alt="Palak Paneer"/>
-          <h3>Palak Paneer</h3>
+          <img src="https://healthynibblesandbits.com/wp-content/uploads/2020/01/Saag-Paneer-FF.jpg" alt="Palak Paneer"/>
+          <h3>Palak Paneer<br><span>पालक पनीर</span></h3>
           <p>Cottage cheese in spinach gravy</p>
           <div class="tags"><span>Vegetarian</span><span>Healthy</span></div>
           <div class="price">₹260</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/WZuVXcnn1C8')">Watch Video</a></div>
           <button onclick="addToCart('Palak Paneer', 260)">Add to Cart</button>
         </div>
         <div class="menu-item">
-          <img src="https://www.whiskaffair.com/wp-content/uploads/2021/04/Mutton-Curry-2-3.jpg" alt="Mutton Curry"/>
-          <h3>Mutton Curry</h3>
+          <img src="https://www.whiskaffair.com/wp-content/uploads/2020/04/Mutton-Kulambu-2-3.jpg" alt="Mutton Curry"/>
+          <h3>Mutton Curry<br><span>मटण करी</span></h3>
           <p>Goat meat in spicy gravy</p>
           <div class="tags"><span>Non-Veg</span><span>Spicy</span></div>
           <div class="price">₹420</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/04ReXQKCQ-U')">Watch Video</a></div>
           <button onclick="addToCart('Mutton Curry', 420)">Add to Cart</button>
         </div>
       </div>
@@ -464,64 +518,71 @@
       <div class="menu-grid">
         <!-- Indian Desserts -->
         <div class="menu-item">
-          <img src="https://www.vegrecipesofindia.com/wp-content/uploads/2020/07/gulab-jamun-recipe-1.jpg" alt="Gulab Jamun"/>
-          <h3>Gulab Jamun</h3>
+          <img src="https://5.imimg.com/data5/SELLER/Default/2024/2/384944363/DN/MV/KT/144303146/gulab-jamun-desi-ghee.jpg" alt="Gulab Jamun"/>
+          <h3>Gulab Jamun<br><span>गुलाब जामुन</span></h3>
           <p>Soft milk balls in sugar syrup</p>
           <div class="tags"><span>Vegetarian</span><span>Popular</span></div>
           <div class="price">₹90</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/1WlFe777vu4')">Watch Video</a></div>
           <button onclick="addToCart('Gulab Jamun', 90)">Add to Cart</button>
         </div>
         <div class="menu-item">
-          <img src="https://www.whiskaffair.com/wp-content/uploads/2020/11/Rasmalai-2-3.jpg" alt="Rasmalai"/>
-          <h3>Rasmalai</h3>
+          <img src="https://www.cookwithmanali.com/wp-content/uploads/2014/07/Rasmalai-Recipe.jpg" alt="Rasmalai"/>
+          <h3>Rasmalai<br><span>रसमलाई</span></h3>
           <p>Cottage cheese patties in sweetened milk</p>
           <div class="tags"><span>Vegetarian</span><span>Popular</span></div>
           <div class="price">₹120</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/3MdHSEykTtw')">Watch Video</a></div>
           <button onclick="addToCart('Rasmalai', 120)">Add to Cart</button>
         </div>
         <div class="menu-item">
-          <img src="https://www.vegrecipesofindia.com/wp-content/uploads/2021/06/kheer-recipe-1.jpg" alt="Rice Kheer"/>
-          <h3>Rice Kheer</h3>
+          <img src="https://www.cookwithkushi.com/wp-content/uploads/2019/10/best_rice_kheer_recipe_doodh_pak-500x500.jpg" alt="Rice Kheer"/>
+          <h3>Rice Kheer<br><span>तांदळाची खीर</span></h3>
           <p>Traditional rice pudding with nuts</p>
           <div class="tags"><span>Vegetarian</span><span>Comfort</span></div>
           <div class="price">₹100</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/WZuVXcnn1C8')">Watch Video</a></div>
           <button onclick="addToCart('Rice Kheer', 100)">Add to Cart</button>
         </div>
         
         <!-- Western Desserts -->
         <div class="menu-item">
-          <img src="https://www.bakingo.com/blog/wp-content/uploads/2022/04/featured-image-of-chocolate-truffle-cake-recipe.jpg" alt="Chocolate Truffle Cake"/>
-          <h3>Chocolate Truffle Cake</h3>
+          <img src="https://static.toiimg.com/thumb/53096885.cms?imgsize=1572013&width=800&height=800" alt="Chocolate Truffle Cake"/>
+          <h3>Chocolate Cake<br><span>चॉकलेट केक</span></h3>
           <p>Rich chocolate cake with ganache</p>
           <div class="tags"><span>Vegetarian</span><span>Chocolate</span></div>
           <div class="price">₹180</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/04ReXQKCQ-U')">Watch Video</a></div>
           <button onclick="addToCart('Chocolate Truffle Cake', 180)">Add to Cart</button>
         </div>
         <div class="menu-item">
-          <img src="https://www.bakingo.com/blog/wp-content/uploads/2022/04/featured-image-of-red-velvet-cake-recipe.jpg" alt="Red Velvet Cake"/>
-          <h3>Red Velvet Cake</h3>
+          <img src="https://c.ndtvimg.com/2023-09/irpk59vg_peanut-jam-modak_625x300_14_September_23.jpg" alt="Modak"/>
+          <h3>Modak<br><span>मोदक</span></h3>
           <p>Classic red velvet with cream cheese</p>
           <div class="tags"><span>Vegetarian</span><span>Popular</span></div>
           <div class="price">₹200</div>
-          <button onclick="addToCart('Red Velvet Cake', 200)">Add to Cart</button>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/1WlFe777vu4')">Watch Video</a></div>
+          <button onclick="addToCart('Modak', 200)">Add to Cart</button>
         </div>
         
-        <!-- More Desserts would continue here up to 50 -->
-        <!-- Example of additional items -->
+        <!-- More Desserts -->
         <div class="menu-item">
-          <img src="https://www.vegrecipesofindia.com/wp-content/uploads/2021/04/rasgulla-1.jpg" alt="Rasgulla"/>
-          <h3>Rasgulla</h3>
+          <img src="https://www.awesomecuisine.com/wp-content/uploads/2014/10/rasgulla-500x500.jpg" alt="Rasgulla"/>
+          <h3>Rasgulla<br><span>रसगुल्ला</span></h3>
           <p>Spongy cottage cheese balls in syrup</p>
           <div class="tags"><span>Vegetarian</span><span>Popular</span></div>
           <div class="price">₹80</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/3MdHSEykTtw')">Watch Video</a></div>
           <button onclick="addToCart('Rasgulla', 80)">Add to Cart</button>
         </div>
         <div class="menu-item">
-          <img src="https://www.whiskaffair.com/wp-content/uploads/2021/03/Phirni-2-3.jpg" alt="Phirni"/>
-          <h3>Phirni</h3>
+          <img src="https://static.toiimg.com/thumb/52499810.cms?imgsize=164584&width=800&height=800" alt="Phirni"/>
+          <h3>Phirni<br><span>
+            फिरनी</span></h3>
           <p>Ground rice pudding with saffron</p>
           <div class="tags"><span>Vegetarian</span><span>Traditional</span></div>
           <div class="price">₹110</div>
+          <div class="video-link"><a onclick="openVideo('https://www.youtube.com/embed/WZuVXcnn1C8')">Watch Video</a></div>
           <button onclick="addToCart('Phirni', 110)">Add to Cart</button>
         </div>
       </div>
@@ -558,6 +619,32 @@
   <script>
     let cart = [];
 
+    // Video modal functions
+    function openVideo(url) {
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('videoFrame');
+      iframe.src = url;
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+    }
+
+    function closeVideo() {
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('videoFrame');
+      iframe.src = '';
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto'; // Re-enable scrolling
+    }
+
+    // Close modal when clicking outside the video
+    window.onclick = function(event) {
+      const modal = document.getElementById('videoModal');
+      if (event.target == modal) {
+        closeVideo();
+      }
+    }
+
+    // Cart functions
     function addToCart(item, price) {
       const existingItem = cart.find(c => c.item === item);
       if (existingItem) {
@@ -809,4 +896,4 @@
     renderCart();
   </script>
 </body>
-</html>. 
+</html>
